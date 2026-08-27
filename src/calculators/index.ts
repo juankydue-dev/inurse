@@ -27,6 +27,7 @@ import { pediatria } from './pediatria'
 import { neuroCritica } from './neuro-critica'
 import { urgencias } from './urgencias'
 import { medicinaFamilia } from './medicina-familia'
+import { cardiotoracica } from './cardiotoracica'
 
 /** Orden de las categorías en la pantalla principal. */
 export const CATEGORIES = [
@@ -64,6 +65,10 @@ export const CATEGORIES = [
   'Geriatría, fragilidad y salud mental',
   'Endocrino, obesidad y diabetes',
   'Hepato-digestivo y nutrición',
+  'Cirugía cardiotorácica y perioperatorio',
+  'Enfermedad pleural',
+  'Soporte extracorpóreo',
+  'Aorta y grandes vasos',
   'Farmacología y dosificación',
   'Fórmulas y cálculos clínicos',
 ]
@@ -78,6 +83,7 @@ export const SPECIALTIES = [
   'Neurología crítica',
   'Emergencias',
   'Medicina Familiar',
+  'Cirugía Cardiotorácica',
 ]
 
 /**
@@ -187,6 +193,7 @@ const ALL: Calculator[] = [
   ...neuroCritica,
   ...urgencias,
   ...medicinaFamilia,
+  ...cardiotoracica,
   ...formulas,
 ]
 
