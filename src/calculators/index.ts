@@ -23,6 +23,9 @@ import { hematoTrauma } from './hemato-trauma'
 import { antropometria } from './antropometria'
 import { farmaciaFormulas } from './farmacia-formulas'
 import { farmaciaOpioides } from './farmacia-opioides'
+import { pediatria } from './pediatria'
+import { neuroCritica } from './neuro-critica'
+import { urgencias } from './urgencias'
 
 /** Orden de las categorías en la pantalla principal. */
 export const CATEGORIES = [
@@ -53,11 +56,23 @@ export const CATEGORIES = [
   'Función renal y ajuste de dosis',
   'Fluidos, electrolitos e infusiones',
   'Opioides, benzodiacepinas y controlados',
+  'Neonatología y pediatría',
+  'Neurología crítica e ictus',
+  'Urgencias y decisión clínica',
   'Farmacología y dosificación',
   'Fórmulas y cálculos clínicos',
 ]
 
-export const SPECIALTIES = ['Anestesiología', 'Cardiología', 'Medicina Intensiva', 'Farmacia']
+export const SPECIALTIES = [
+  'Anestesiología',
+  'Cardiología',
+  'Medicina Intensiva',
+  'Farmacia',
+  'Pediatría',
+  'Cuidados Críticos Neonatales',
+  'Neurología crítica',
+  'Emergencias',
+]
 
 /**
  * Escalas que aparecen en la biblioteca de más de una especialidad; se les añade
@@ -162,6 +177,9 @@ const ALL: Calculator[] = [
   ...farmacologia,
   ...farmaciaFormulas,
   ...farmaciaOpioides,
+  ...pediatria,
+  ...neuroCritica,
+  ...urgencias,
   ...formulas,
 ]
 
