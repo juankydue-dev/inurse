@@ -21,6 +21,8 @@ import { renalMetabolico } from './renal-metabolico'
 import { hepatoDigestivo } from './hepato-digestivo'
 import { hematoTrauma } from './hemato-trauma'
 import { antropometria } from './antropometria'
+import { farmaciaFormulas } from './farmacia-formulas'
+import { farmaciaOpioides } from './farmacia-opioides'
 
 /** Orden de las categorías en la pantalla principal. */
 export const CATEGORIES = [
@@ -48,11 +50,14 @@ export const CATEGORIES = [
   'Infecciones',
   'Endocrino y tóxicos',
   'Antropometría y metabolismo',
+  'Función renal y ajuste de dosis',
+  'Fluidos, electrolitos e infusiones',
+  'Opioides, benzodiacepinas y controlados',
   'Farmacología y dosificación',
   'Fórmulas y cálculos clínicos',
 ]
 
-export const SPECIALTIES = ['Anestesiología', 'Cardiología', 'Medicina Intensiva']
+export const SPECIALTIES = ['Anestesiología', 'Cardiología', 'Medicina Intensiva', 'Farmacia']
 
 /**
  * Escalas que aparecen en la biblioteca de más de una especialidad; se les añade
@@ -68,8 +73,7 @@ const EXTRA_SPECIALTIES: Record<string, string[]> = {
   cage: ['Cardiología'],
   vexus: ['Cardiología'],
   // Compartidas con Medicina Intensiva
-  'fluidos-mantenimiento': ['Anestesiología', 'Medicina Intensiva'],
-  'cockcroft-gault': ['Anestesiología', 'Medicina Intensiva'],
+  'fluidos-mantenimiento': ['Anestesiología', 'Medicina Intensiva', 'Farmacia'],
   'calcio-corregido': ['Anestesiología', 'Medicina Intensiva'],
   qtc: ['Anestesiología'],
   diuresis: ['Anestesiología', 'Medicina Intensiva'],
@@ -117,6 +121,21 @@ const EXTRA_SPECIALTIES: Record<string, string[]> = {
   reticulocitos: ['Medicina Intensiva'],
   sofa: ['Medicina Intensiva'],
   'spo2-fio2': ['Medicina Intensiva'],
+  // Compartidas con Farmacia
+  'cockcroft-gault': ['Anestesiología', 'Medicina Intensiva', 'Farmacia'],
+  mdrd: ['Farmacia'],
+  'imc-sc': ['Farmacia', 'Medicina Intensiva'],
+  'peso-ideal': ['Farmacia', 'Medicina Intensiva'],
+  'gasto-energetico': ['Farmacia', 'Medicina Intensiva'],
+  'masa-libre-grasa-farm': ['Farmacia'],
+  'anestesicos-locales-farm': ['Farmacia'],
+  'fluidos-intraoperatorios-farm': ['Farmacia'],
+  crioprecipitado: ['Farmacia'],
+  'etanol-estimado': ['Farmacia'],
+  'deficit-agua-libre': ['Farmacia'],
+  'deficit-bicarbonato': ['Farmacia'],
+  'tpa-ictus': ['Farmacia'],
+  'ritmo-goteo': ['Farmacia'],
 }
 
 const ALL: Calculator[] = [
@@ -141,6 +160,8 @@ const ALL: Calculator[] = [
   ...infecciones,
   ...antropometria,
   ...farmacologia,
+  ...farmaciaFormulas,
+  ...farmaciaOpioides,
   ...formulas,
 ]
 
