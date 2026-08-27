@@ -26,6 +26,7 @@ import { farmaciaOpioides } from './farmacia-opioides'
 import { pediatria } from './pediatria'
 import { neuroCritica } from './neuro-critica'
 import { urgencias } from './urgencias'
+import { medicinaFamilia } from './medicina-familia'
 
 /** Orden de las categorías en la pantalla principal. */
 export const CATEGORIES = [
@@ -59,6 +60,10 @@ export const CATEGORIES = [
   'Neonatología y pediatría',
   'Neurología crítica e ictus',
   'Urgencias y decisión clínica',
+  'Medicina interna y familiar',
+  'Geriatría, fragilidad y salud mental',
+  'Endocrino, obesidad y diabetes',
+  'Hepato-digestivo y nutrición',
   'Farmacología y dosificación',
   'Fórmulas y cálculos clínicos',
 ]
@@ -72,6 +77,7 @@ export const SPECIALTIES = [
   'Cuidados Críticos Neonatales',
   'Neurología crítica',
   'Emergencias',
+  'Medicina Familiar',
 ]
 
 /**
@@ -180,6 +186,7 @@ const ALL: Calculator[] = [
   ...pediatria,
   ...neuroCritica,
   ...urgencias,
+  ...medicinaFamilia,
   ...formulas,
 ]
 
