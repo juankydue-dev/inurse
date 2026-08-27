@@ -3,10 +3,10 @@ import type { CalcInput, Calculator, Values } from '../engine/types'
 import { fmt } from '../engine/types'
 
 const LEVEL_LABEL: Record<string, string> = {
-  ok: 'Bajo',
-  info: 'Leve',
-  warn: 'Intermedio',
-  danger: 'Alto',
+  ok: 'Normal',
+  info: 'Nota',
+  warn: 'Atención',
+  danger: 'Alerta',
 }
 
 function initialValues(c: Calculator): Values {

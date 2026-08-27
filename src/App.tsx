@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { CALCULATORS, CATEGORIES } from './calculators'
+import { CALCULATORS, CATEGORIES, SPECIALTIES } from './calculators'
 import { CalculatorView } from './components/CalculatorView'
 
 const normalize = (s: string) =>
@@ -11,20 +11,23 @@ const normalize = (s: string) =>
 export default function App() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [query, setQuery] = useState('')
+  const [specialty, setSpecialty] = useState<string | null>(null)
 
   const selected = CALCULATORS.find((c) => c.id === selectedId) ?? null
 
   const filtered = useMemo(() => {
     const q = normalize(query.trim())
-    if (!q) return CALCULATORS
-    return CALCULATORS.filter(
-      (c) =>
+    return CALCULATORS.filter((c) => {
+      if (specialty && !c.specialty.includes(specialty)) return false
+      if (!q) return true
+      return (
         normalize(c.name).includes(q) ||
         normalize(c.shortName ?? '').includes(q) ||
         normalize(c.description).includes(q) ||
-        normalize(c.category).includes(q),
-    )
-  }, [query])
+        normalize(c.category).includes(q)
+      )
+    })
+  }, [query, specialty])
 
   return (
     <div className="app">
@@ -64,6 +67,26 @@ export default function App() {
           />
         ) : (
           <>
+            <div className="filters">
+              <button
+                className={`filter${specialty === null ? ' active' : ''}`}
+                onClick={() => setSpecialty(null)}
+              >
+                Todas
+              </button>
+              {SPECIALTIES.map((s) => (
+                <button
+                  key={s}
+                  className={`filter${specialty === s ? ' active' : ''}`}
+                  onClick={() => setSpecialty(s)}
+                >
+                  {s}
+                </button>
+              ))}
+              <span className="filter-count">
+                {filtered.length} {filtered.length === 1 ? 'calculadora' : 'calculadoras'}
+              </span>
+            </div>
             {CATEGORIES.map((cat) => {
               const items = filtered.filter((c) => c.category === cat)
               if (items.length === 0) return null

@@ -110,6 +110,41 @@ body {
   padding: 20px 16px 60px;
 }
 
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.filter {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.filter:hover {
+  border-color: var(--teal);
+}
+
+.filter.active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+
+.filter-count {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .category h2 {
   font-size: 15px;
   text-transform: uppercase;
