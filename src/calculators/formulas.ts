@@ -264,8 +264,9 @@ export const formulas: Calculator[] = [
     ],
     compute: (v) => {
       const bsa = Math.sqrt((v.talla! * v.peso!) / 3600)
-      const vo2 = (v.sexo === 1 ? 125 : 138.1 - 11.49 * Math.log(v.edad!) + 0.378 * v.fc!) * bsa
-      const vo2Final = v.sexo === 1 ? (125 - 2.1 * 1) * bsa : vo2
+      // Consumo de oxígeno estimado (LaFarge y Miettinen), en mL/min/m² × superficie corporal.
+      const coefEdad = v.sexo === 1 ? 17.04 : 11.49
+      const vo2 = (138.1 - coefEdad * Math.log(v.edad!) + 0.378 * v.fc!) * bsa
       const dif = 13.4 * v.hb! * ((v.sao2! - v.svo2!) / 100)
       if (dif <= 0)
         return {
@@ -273,7 +274,7 @@ export const formulas: Calculator[] = [
           interpretation: 'La saturación arterial debe ser mayor que la venosa mixta.',
           level: 'warn',
         }
-      const co = vo2Final / dif
+      const co = vo2 / dif
       const ci = co / bsa
       const sv = (co * 1000) / v.fc!
       return {
@@ -290,14 +291,19 @@ export const formulas: Calculator[] = [
         level: ci < 2.2 ? 'danger' : ci <= 4 ? 'ok' : 'warn',
         details: [
           `Superficie corporal (Mosteller): ${fmt(bsa, 2)} m².`,
-          `VO₂ estimado (LaFarge): ${fmt(vo2Final, 0)} mL/min.`,
+          `VO₂ estimado (LaFarge): ${fmt(vo2, 0)} mL/min.`,
           `Volumen sistólico: ${fmt(sv, 0)} mL.`,
         ],
       }
     },
     notes: [
-      'Usa el consumo de oxígeno estimado (método de Fick indirecto), no medido: es una aproximación.',
+      'Usa el consumo de oxígeno estimado con la ecuación de LaFarge y Miettinen (Fick indirecto), no medido.',
+      'En insuficiencia cardíaca con fracción de eyección reducida, las ecuaciones de estimación tienen límites de concordancia amplios: LaFarge fue la más ajustada de las tres estudiadas, pero con un error ≥ 25 % en el 11 % de los pacientes y una clasificación errónea del índice cardíaco en torno al 20 %. Ante decisiones críticas, medir el VO₂ directamente.',
       'Requiere saturación venosa mixta obtenida de arteria pulmonar (no venosa central).',
+    ],
+    references: [
+      'LaFarge CG, Miettinen OS. The estimation of oxygen consumption. Cardiovasc Res. 1970;4(1):23-30.',
+      'Chase PJ, et al. Comparison of estimations versus measured oxygen consumption at rest in patients with heart failure and reduced ejection fraction who underwent right-sided heart catheterization. Am J Cardiol. 2015;116(11):1724-30. doi:10.1016/j.amjcard.2015.08.051',
     ],
   },
   {
