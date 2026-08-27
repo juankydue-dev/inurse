@@ -23,8 +23,47 @@ Cada calculadora es un objeto `Calculator` (ver `src/engine/types.ts`) dentro de
 `compute` que devuelve puntuación, interpretación y nivel de riesgo. El formulario y el panel
 de resultado se generan automáticamente.
 
-La portada permite filtrar por especialidad (**Anestesiología** y **Cardiología**); las escalas
-que figuran en la biblioteca de ambas especialidades aparecen en los dos filtros.
+La portada permite filtrar por especialidad (**Anestesiología**, **Cardiología** y **Medicina
+Intensiva**); las escalas que figuran en la biblioteca de varias especialidades aparecen en
+todos los filtros correspondientes.
+
+## Escalas implementadas — Medicina Intensiva
+
+### Gravedad en UCI y sepsis
+- qSOFA · SOFA · mSOFA · APACHE II · NEWS2 · MEWS · Braden · índice de choque diastólico
+- NUTRIC · MUST · NRS-2002 · Aldrete
+
+### Neurocrítico e ictus
+- Escala de coma de Glasgow · GCS-P (con pupilas) · FOUR · NIHSS · Rankin modificada
+- ABC/2 (volumen de hemorragia) · ICH · Hunt y Hess · ABCD² · 2HELPS2B
+- CAM-ICU (delirio) · CPOT (dolor)
+
+### Respiratorio crítico y ventilación
+- Criterios de Berlín (SDRA) · PaO₂/FiO₂ (Horowitz) · gradiente A-a · índice de oxigenación
+- Murray · MACOCHA · profundidad del tubo endotraqueal y volumen corriente protector
+- CURB-65 · CRB-65 · BAP-65 · DECAF · BODE · CAT · GOLD
+
+### Renal, iones y equilibrio ácido-base
+- Analizador de gasometría arterial (trastorno primario, compensación, anión gap y delta-delta)
+- MDRD · FENa · FEUrea · AKIN · cociente BUN/creatinina
+- Déficit de agua libre · déficit de bicarbonato · Kt/V
+
+### Hepatología y digestivo
+- Child-Pugh · MELD y MELD-Na · Maddrey · Glasgow de hepatitis alcohólica · Lille
+- Criterios del King's College · BISAP · HAPS · Glasgow-Blatchford · AIMS65 · Oakland · BARD
+
+### Hematología y oncología
+- 4T (trombopenia por heparina) · recuentos absolutos y índice neutrófilos/linfocitos
+- MASCC · CISNE · síndrome de liberación de citocinas (ASTCT) · ICE/ICANS · HScore
+- Volumen sanguíneo · dosificación de crioprecipitado
+
+### Trauma y quemados
+- ISS · ABC (transfusión masiva) · Parkland · LRINEC · NEXUS craneal · NEXUS torácico
+
+### Endocrino, tóxicos y antropometría
+- Burch-Wartofsky · coma mixedematoso · concentración estimada de etanol
+- IMC y superficie corporal · peso ideal, predicho y ajustado · gasto energético basal
+- Índice de Katz · velocidad de goteo intravenoso
 
 ## Escalas implementadas — Cardiología
 
@@ -101,6 +140,18 @@ que figuran en la biblioteca de ambas especialidades aparecen en los dos filtros
 
 Escalas de las listas de MDCalc que requieren verificar coeficientes publicados o resolver
 dudas antes de implementarlas con garantías.
+
+### Medicina Intensiva
+
+| Escala | Motivo |
+| --- | --- |
+| SAPS II | Modelo con 17 variables y coeficientes logísticos: verificar tablas con la publicación original |
+| Escalas de COVID-19 (4C, COVID-GRAM, CIRC, CHOSEN, VACO, Brescia, Paxlovid) | Modelos de una etapa concreta de la pandemia; valorar su vigencia antes de incorporarlos |
+| Dosificación de N-acetilcisteína en la intoxicación por paracetamol, DigiFab, atropina, conversión de benzodiacepinas y de opiáceos | Cálculos de dosis con implicaciones de seguridad: requieren verificación estricta contra ficha técnica y protocolo local |
+| LIPS, HACOR, NIVO, CART, GO-FAR, CAHP, HOPE, RESCUE-IHCA, SAVE | Modelos con múltiples coeficientes pendientes de verificación |
+| C-SSRS y cribados de violencia de pareja (HITS, HARK, AAS, OVAT) | Instrumentos sensibles: requieren una presentación cuidadosa con recursos de derivación asociados |
+| Escalas pediátricas (PEWS, CAPD, PAS, Apgar, sepsis neonatal, ESC) | Corresponden a Pediatría; se implementarán con esa especialidad |
+| Escalas de nefrología, oncología y hematología de subespecialidad (nefropatía IgA, cisplatino, NCCN-IPI, CNS-IPI, Duval/CIBMTR, IMPEDE-VTE) | Modelos muy específicos pendientes de revisión |
 
 ### Cardiología
 

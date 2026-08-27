@@ -14,9 +14,23 @@ import { cardioTEV } from './cardio-tev'
 import { cardioICSincope } from './cardio-ic-sincope'
 import { cardioVarios } from './cardio-varios'
 import { formulas } from './formulas'
+import { neurocritico } from './neurocritico'
+import { uciGravedad } from './uci-gravedad'
+import { respiratorioCritico } from './respiratorio-critico'
+import { renalMetabolico } from './renal-metabolico'
+import { hepatoDigestivo } from './hepato-digestivo'
+import { hematoTrauma } from './hemato-trauma'
+import { antropometria } from './antropometria'
 
 /** Orden de las categorías en la pantalla principal. */
 export const CATEGORIES = [
+  'Gravedad en UCI y sepsis',
+  'Neurocrítico e ictus',
+  'Respiratorio crítico y ventilación',
+  'Renal, iones y equilibrio ácido-base',
+  'Hepatología y digestivo',
+  'Hematología y oncología',
+  'Trauma y quemados',
   'Riesgo perioperatorio',
   'Vía aérea',
   'Fibrilación auricular y anticoagulación',
@@ -32,35 +46,86 @@ export const CATEGORIES = [
   'Neurológico, sedación y gravedad',
   'Alcohol y abstinencia',
   'Infecciones',
+  'Endocrino y tóxicos',
+  'Antropometría y metabolismo',
   'Farmacología y dosificación',
   'Fórmulas y cálculos clínicos',
 ]
 
-export const SPECIALTIES = ['Anestesiología', 'Cardiología']
+export const SPECIALTIES = ['Anestesiología', 'Cardiología', 'Medicina Intensiva']
 
 /**
  * Escalas que aparecen en la biblioteca de más de una especialidad; se les añade
  * la etiqueta correspondiente para que aparezcan al filtrar por cualquiera de ellas.
  */
 const EXTRA_SPECIALTIES: Record<string, string[]> = {
-  pam: ['Cardiología'],
+  // Anestesiología ↔ Cardiología
+  pam: ['Cardiología', 'Medicina Intensiva'],
   rcri: ['Cardiología'],
-  dasi: ['Cardiología'],
-  charlson: ['Cardiología'],
+  dasi: ['Cardiología', 'Medicina Intensiva'],
+  charlson: ['Cardiología', 'Medicina Intensiva'],
   care: ['Cardiología'],
   cage: ['Cardiología'],
   vexus: ['Cardiología'],
-  'fluidos-mantenimiento': ['Anestesiología'],
-  'cockcroft-gault': ['Anestesiología'],
-  'calcio-corregido': ['Anestesiología'],
+  // Compartidas con Medicina Intensiva
+  'fluidos-mantenimiento': ['Anestesiología', 'Medicina Intensiva'],
+  'cockcroft-gault': ['Anestesiología', 'Medicina Intensiva'],
+  'calcio-corregido': ['Anestesiología', 'Medicina Intensiva'],
   qtc: ['Anestesiología'],
-  diuresis: ['Anestesiología'],
-  light: ['Anestesiología'],
-  mews: ['Anestesiología'],
-  mmrc: ['Anestesiología'],
+  diuresis: ['Anestesiología', 'Medicina Intensiva'],
+  light: ['Anestesiología', 'Medicina Intensiva'],
+  mews: ['Anestesiología', 'Medicina Intensiva'],
+  mmrc: ['Anestesiología', 'Medicina Intensiva'],
+  fick: ['Medicina Intensiva'],
+  cpo: ['Medicina Intensiva'],
+  ariscat: ['Medicina Intensiva'],
+  heart: ['Medicina Intensiva'],
+  'has-bled': ['Medicina Intensiva'],
+  'cha2ds2-vasc': ['Medicina Intensiva'],
+  chads2: ['Medicina Intensiva'],
+  'atria-hemorragia': ['Medicina Intensiva'],
+  hemorr2hages: ['Medicina Intensiva'],
+  'brugada-tv': ['Medicina Intensiva'],
+  sgarbossa: ['Medicina Intensiva'],
+  nyha: ['Medicina Intensiva'],
+  'ccs-angina': ['Medicina Intensiva'],
+  'framingham-ic': ['Medicina Intensiva'],
+  'duke-endocarditis': ['Medicina Intensiva'],
+  ginebra: ['Medicina Intensiva'],
+  hestia: ['Medicina Intensiva'],
+  padua: ['Medicina Intensiva'],
+  'improve-tev': ['Medicina Intensiva'],
+  'dimero-edad': ['Medicina Intensiva'],
+  perc: ['Medicina Intensiva'],
+  'wells-ep': ['Medicina Intensiva'],
+  'wells-tvp': ['Medicina Intensiva'],
+  nhfs: ['Medicina Intensiva'],
+  'el-ganzouri': ['Medicina Intensiva'],
+  heaven: ['Medicina Intensiva'],
+  mallampati: ['Medicina Intensiva'],
+  bps: ['Medicina Intensiva'],
+  nvps: ['Medicina Intensiva'],
+  abbey: ['Medicina Intensiva'],
+  flacc: ['Medicina Intensiva'],
+  rdos: ['Medicina Intensiva'],
+  baws: ['Medicina Intensiva'],
+  drip: ['Medicina Intensiva'],
+  'masa-libre-grasa': ['Medicina Intensiva'],
+  'anestesicos-locales': ['Medicina Intensiva'],
+  mabl: ['Medicina Intensiva'],
+  'fluidos-intraoperatorios': ['Medicina Intensiva'],
+  reticulocitos: ['Medicina Intensiva'],
+  sofa: ['Medicina Intensiva'],
+  'spo2-fio2': ['Medicina Intensiva'],
 }
 
 const ALL: Calculator[] = [
+  ...uciGravedad,
+  ...neurocritico,
+  ...respiratorioCritico,
+  ...renalMetabolico,
+  ...hepatoDigestivo,
+  ...hematoTrauma,
   ...riesgo,
   ...viaAerea,
   ...cardioFA,
@@ -74,11 +139,12 @@ const ALL: Calculator[] = [
   ...neuro,
   ...alcohol,
   ...infecciones,
+  ...antropometria,
   ...farmacologia,
   ...formulas,
 ]
 
 export const CALCULATORS: Calculator[] = ALL.map((c) => {
   const extra = EXTRA_SPECIALTIES[c.id]
-  return extra ? { ...c, specialty: [...c.specialty, ...extra] } : c
+  return extra ? { ...c, specialty: [...new Set([...c.specialty, ...extra])] } : c
 })
