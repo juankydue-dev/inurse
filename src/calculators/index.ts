@@ -24,6 +24,9 @@ import { antropometria } from './antropometria'
 import { farmaciaFormulas } from './farmacia-formulas'
 import { farmaciaOpioides } from './farmacia-opioides'
 import { pediatria } from './pediatria'
+import { pediatria2 } from './pediatria-2'
+import { primaryCare } from './primary-care'
+import { familyPractice } from './family-practice'
 import { neuroCritica } from './neuro-critica'
 import { urgencias } from './urgencias'
 import { medicinaFamilia } from './medicina-familia'
@@ -59,6 +62,7 @@ export const CATEGORIES = [
   'Fluidos, electrolitos e infusiones',
   'Opioides, benzodiacepinas y controlados',
   'Neonatología y pediatría',
+  'Obstetricia y ginecología',
   'Neurología crítica e ictus',
   'Urgencias y decisión clínica',
   'Medicina interna y familiar',
@@ -84,6 +88,7 @@ export const SPECIALTIES = [
   'Emergencias',
   'Medicina Familiar',
   'Cirugía Cardiotorácica',
+  'Obstetricia',
 ]
 
 /**
@@ -190,6 +195,9 @@ const ALL: Calculator[] = [
   ...farmaciaFormulas,
   ...farmaciaOpioides,
   ...pediatria,
+  ...pediatria2,
+  ...primaryCare,
+  ...familyPractice,
   ...neuroCritica,
   ...urgencias,
   ...medicinaFamilia,
