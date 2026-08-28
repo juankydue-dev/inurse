@@ -25,6 +25,7 @@ import { farmaciaFormulas } from './farmacia-formulas'
 import { farmaciaOpioides } from './farmacia-opioides'
 import { pediatria } from './pediatria'
 import { pediatria2 } from './pediatria-2'
+import { primaryCare } from './primary-care'
 import { neuroCritica } from './neuro-critica'
 import { urgencias } from './urgencias'
 import { medicinaFamilia } from './medicina-familia'
@@ -194,6 +195,7 @@ const ALL: Calculator[] = [
   ...farmaciaOpioides,
   ...pediatria,
   ...pediatria2,
+  ...primaryCare,
   ...neuroCritica,
   ...urgencias,
   ...medicinaFamilia,
